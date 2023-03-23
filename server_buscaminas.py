@@ -1,5 +1,5 @@
 import socket, random, pickle
-from buscaminas import build_buscaminas, clic
+#from buscaminas import build_buscaminas, clic
 
 serverAddress = "localhost"
 port = 65432

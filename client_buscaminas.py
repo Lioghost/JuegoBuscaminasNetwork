@@ -1,4 +1,4 @@
-import socket, pickle, os
+import socket, pickle, os, time
 
 serverAddress = "localhost"
 port = 65432
@@ -7,7 +7,6 @@ HEADER = 512
 def printmin(campo,i,j):
     #Función que imprime la matriz en un formato agradable para el usuario
     campoprint = list(campo)
-    print("holaaaaaaaaaaaaa", type(i), type(j))
     x = "  "
     ascii = 65
     for j in range(0, i):
@@ -53,10 +52,20 @@ def start():
             return (9, 9, 2)
         case "2":
             return (16, 16, 40)
+        
+def cronometer():
+    for h in range(0, 24):
+        for m in range(0, 60):
+            for s in range(0, 60):
+                os.system('cls')
+                return f"{h}:{m}:{s}"
+                time.sleep(1)
+
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((serverAddress, port))
     level = start()
+    incio = time.time()
     i, j, mines = level
     start = pickle.dumps(level)
     s.send(start)
@@ -92,7 +101,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             if data_deserial[2] == mines:
                 os.system("cls")
                 print("\tGANASTE!!!!")
-                #printmin(data_deserial[1],i,j)
                 break
 
             match data_deserial[0]:
@@ -109,10 +117,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     matrix[i1-1][j1-1] = "X"
             
         printmin(matrix,i1,j1)
-                
-                
-                
-            #matrix = data_deserial[1]
-            #continue
-
+    final = time.time()
+    print(f"Tiempo Transcurrido: {final - incio}")
 #print(f"Received {data!r}")
