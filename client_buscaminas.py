@@ -1,7 +1,7 @@
-import socket, pickle, os, time
+import socket, pickle, os, time, sys
 
 serverAddress = "localhost"
-port = 65432
+port = 65430
 HEADER = 512
 
 def printmin(campo,i,j):
@@ -49,7 +49,7 @@ def start():
 
     match level:
         case "1":
-            return (9, 9, 2)
+            return (9, 9, 10)
         case "2":
             return (16, 16, 40)
         
@@ -88,6 +88,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.sendall(data)
         
         data_len = s.recv(HEADER)
+        #print("Hholaaaaa", sys.getsizeof(data_len))
             
         if not data_len:
             break
@@ -120,3 +121,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     final = time.time()
     print(f"Tiempo Transcurrido: {final - incio}")
 #print(f"Received {data!r}")
+

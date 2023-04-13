@@ -1,8 +1,9 @@
-import socket, random, pickle
+import socket, random, pickle, sys
 #from buscaminas import build_buscaminas, clic
 
+#serverAddress = "192.168.43.18"
 serverAddress = "localhost"
-port = 65432
+port = 65430
 HEADER = 512
 
 def cont(m,b):
@@ -103,12 +104,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         while True:
             print(matrix)
             data_len = conn.recv(HEADER)
+            #print("Hholaaaaa", sys.getsizeof(data))
             
             if not data_len:
                 break
             else:
                 data = b''
                 data += conn.recv(int(data_len))
+                #print("Hholaaaaa", sys.getsizeof(data))
                 data_deserial = pickle.loads(data)
                 i, j, mine = data_deserial
 
